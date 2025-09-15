@@ -1,0 +1,21 @@
+---
+- name: My Webserver playbook (Debian/Ubuntu)
+  hosts: webservers
+  become: yes
+  become_user: root
+
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+
+    - name: Install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Enable and start nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
